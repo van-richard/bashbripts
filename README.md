@@ -1,14 +1,11 @@
 # bashbripts
 
-```
 To-Do:
-
 * Generalize dotfile 
 * Add bash scripts
 * Check conda envs
-```
 
-**tmux implmentated only for local macos**
+**Note: `tmux` implmentated only for local macos**
 
 ## Purpose
 
