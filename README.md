@@ -1,5 +1,7 @@
 # bashbripts
 
+Attempting to write helpful bash scripts for general command line and computational chemistry applications.
+
 To-Do:
 * Generalize dotfile 
 * Add bash scripts
@@ -9,26 +11,36 @@ To-Do:
 
 ## Purpose
 
-To maintain consistency of configuration/scripting/analysis files across multiple devices (MacOS/Linux).
+A personal set of scripts to help maintain configuration/scripting/analysis files across multiple devices (MacOS/Linux). 
+
+These scripts are geared towards:
+
+Operating Systems (OS) - MacOS (Darwin), Linux (CentOS)
+`$SHELL` - `/bin/bash`
+Editor - `vi/vim`
+Terminal Multiplexer - `tmux`
+Conda - `miniforge3`
+
+
+### Goals
 
 * Prepare user configuration files for `bash`, `vim`, and `tmux`
 * Generate the `~/Programs/` directory for general programs, like:
     * Conda (miniforge3)
 
-Includes some analysis scripts to check current state of MD simulation trajectories
+Including some analysis scripts to check current state of MD simulation trajectories
 
-## Overview
 
-Attempting to write helpful bash scripts for general command line and computational chemistry applications.
+### Installation
 
-Copy this to `~/Scripts`:
+Clone to `~/Scripts`:
 
 ```
 mkdir -p ~/Scripts
 git@github.com:van-richard/bashbripts.git ~/Scripts/bashbripts
 ```
 
-### Directory Tree
+### Overview
 
 ```
 ./bashbripts
@@ -43,9 +55,9 @@ git@github.com:van-richard/bashbripts.git ~/Scripts/bashbripts
 ```
 
 
-## Import to Environment
+## Import Commands to `$SHELL` Environment
 
-To have bash scripts available in your environmnent, append `$PATH` to `~/.bashrc`
+Commands can be made accessible within the `$SHELL` environmnent by appending the directory path to `~/.bashrc`
 
 ```
 echo '# My Bash Scripts
