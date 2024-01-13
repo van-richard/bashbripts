@@ -2,13 +2,16 @@
 
 Attempting to write helpful bash scripts for general command line and computational chemistry applications.
 
-> [!NOTE]
-> To-Do:
-> - [] Generalize dotfile 
-> - [] Add bash scripts
-> - [] Check conda envs
->
-> **`tmux` implmentated only for local macos**
+<details>
+
+<summary>To-Do List:</summary>
+- [] Generalize dotfile 
+- [] Add bash scripts
+- [] Check conda envs
+
+**NOTE: `tmux` implmentated only for local macos**
+
+</details>
 
 ## [Purpose](#purpose)
 
