@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Set to true for testing, false for real operations
-TESTING=true
+
+source "$(dirname $(pwd))/bin/logger.sh"
 
 # Paths to template files
 TEMPLATE_DIR="$(dirname $(pwd))/templates"
@@ -42,7 +42,7 @@ perform_diff_check() {
         # Sort the content of the files before diffing
         local sorted_existing_content=$(sort "$file_path")
         local sorted_template_content=$(sort <(echo "$template_content"))
-        diff_result=$(diff <(echo "$sorted_existing_content") <(echo "$sorted_template_content"))
+        diff_result=$(diff <(echo "$sorted_existing_content") <(echo "$sorted_template_content") | wc -l)
         echo "$diff_result"
     else
         echo "File does not exist"
@@ -54,6 +54,20 @@ write_to_file() {
     local content="$1"
     local file_path="$2"
     echo "$content" > "$file_path"
+}
+
+# Function to write content to file if differences exist
+write_to_file_if_diff() {
+    local content="$1"
+    local file_path="$2"
+    local diff_result="$3"
+
+    if [ -n "$diff_result" ]; then
+        echo "$content" > "$file_path"
+        echo "Updated: $file_path"
+    else
+        echo "No differences detected for $file_path. Skipping update."
+    fi
 }
 
 # Function to ask the user if they want to exit and check log file
@@ -69,7 +83,6 @@ ask_to_exit() {
             ;;
     esac
 }
-
 
 # Detect the operating system
 os=$(uname -s)
@@ -128,22 +141,18 @@ else
     exit 0
 fi
 
-
 # Write content to files if the user agrees
 read -p "Do you want to write the modified content to files? (y/n): " write_to_files
 case $write_to_files in
     [Yy]*)
-        if [ "$TESTING" = true ]; then
-            echo "Testing Mode: Content not written to files in testing mode."
-        else
-            write_to_file "$BASH_PROFILE_CONTENT" "$BASH_PROFILE"
-            write_to_file "$BASHRC_CONTENT" "$BASHRC"
-            write_to_file "$BASH_ALIASES_CONTENT" "$BASH_ALIASES"
-            write_to_file "$VIMRC_CONTENT" "$VIMRC"
-            write_to_file "$TMUX_CONF_CONTENT" "$TMUX_CONF"
-            echo "Bash startup files, Vim configuration, and tmux configuration updated."
+        # Write content to files if differences exist
+        write_to_file_if_diff "$BASH_PROFILE_CONTENT" "$BASH_PROFILE" "$diff_profile"
+        write_to_file_if_diff "$BASHRC_CONTENT" "$BASHRC" "$diff_rc"
+        write_to_file_if_diff "$BASH_ALIASES_CONTENT" "$BASH_ALIASES" "$diff_aliases"
+        write_to_file_if_diff "$VIMRC_CONTENT" "$VIMRC" "$diff_vimrc"
+        write_to_file_if_diff "$TMUX_CONF_CONTENT" "$TMUX_CONF" "$diff_tmux_conf"
 
-        fi
+        echo "Bash startup files, Vim configuration, and tmux configuration updated."
         ;;
     *)
         echo "Modified content not written to files. Exiting."
