@@ -2,14 +2,15 @@
 
 Attempting to write helpful bash scripts for general command line and computational chemistry applications.
 
-To-Do:
-* Generalize dotfile 
-* Add bash scripts
-* Check conda envs
+> [!NOTE]
+> To-Do:
+> - [] Generalize dotfile 
+> - [] Add bash scripts
+> - [] Check conda envs
+>
+> **`tmux` implmentated only for local macos**
 
-**Note: `tmux` implmentated only for local macos**
-
-## Purpose
+## [Purpose](#purpose)
 
 A personal set of scripts to help maintain configuration/scripting/analysis files across multiple devices (MacOS/Linux). 
 
