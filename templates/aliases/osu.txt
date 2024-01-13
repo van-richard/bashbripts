@@ -1,0 +1,5 @@
+# osu
+alias panconda='eval "$(/home/van/.Programs/miniforge3/bin/conda shell.bash hook)"; conda activate'
+alias interx="srun --pty -p express --nodes=1 --ntasks-per-node=4 --mem=10G --time=01:00:00 /bin/bash"
+alias interb="srun --pty -p batch --nodes=1 --ntasks-per-node=8 --mem=10G --time=01:00:00 /bin/bash"
+

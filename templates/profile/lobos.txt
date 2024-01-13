@@ -1,0 +1,5 @@
+# lobos
+
+export PATH=/v/apps/bin:$PATH
+export PATH=/u/van/Programs/cphmd-prep/cphmd_tools:$PATH
+export PATH=/u/van/Programs/ADFRsuite_x86_64Linux_1.0/bin:$PATH

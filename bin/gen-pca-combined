@@ -1,0 +1,87 @@
+#!/bin/bash
+
+#######################################################
+#                                                     #
+#    Script to generate visualization files for       #
+#    principal components of combined trajectory.     #
+#                                                     #
+#    The input files requires a multi-topology        #
+#    file (*.parm7), and the multiple                 #
+#    trajectory files (prod*.nc/*.nc).                #
+#                                                     #
+#    The output file will be:                         #
+#              dir1_dir2_dirN_protein.nmd             #
+#                                                     #
+#    TO USE THIS SCRIPT:                              #
+#      1) With pca.in in the analysis folder,         #
+#         run the script with a list of directory     #
+#         names. The output will be 1 nmd file for    #
+#         ALL directory listed.                       #
+#                                                     #
+#      bash pca.in DIR1 DIR2 DIR3                     #
+#                                                     #
+#######################################################
+
+# Load Modules for LoBos
+module load Amber
+
+# Load Modules for OSCER
+#module load intel/2020a
+#source /home/panxl/amber20/amber.sh
+
+# Load Modules for Pete 
+#module load intel/2021.2.0
+#module load impi/2021.2.0
+#source /home/van/.Programs/amber21/amber.sh
+
+if [ $# -eq 0 ]; then
+    >&2 echo "No arguments provided"
+    exit 1
+fi
+
+mask="@CA"
+amberparm="protein"
+ambertraj="prod*"
+vecs="10"
+
+name=$(echo "$@" | tr " " "_")
+
+echo "# Load topology and trajectory [contains name handler]" > traj.in
+
+for item in "$@"; do
+echo "parm ../${item}/${amberparm}.parm7 [${item}]" >> traj.in
+done
+
+for item in "$@"; do
+echo "trajin ../${item}/${ambertraj}.nc parm [${item}]" >> traj.in
+done
+
+echo "
+# Translate/rotate the coordinates of protein 
+# (residues 3 to 1302 excluding H) to fit 
+# with the first frame of trajectory, then create an 
+# average structure and save as rst (gpu-average). 
+# Finally, create a dateset of coordinates (gpu-trajectory) 
+strip !($mask)
+rms first $mask
+average crdset gpu-average
+createcrd gpu-trajectory
+run
+
+# Fit frames (gpu-trajectory) to average structure (gpu-average)
+crdaction gpu-trajectory rms ref gpu-average $mask
+
+# Calculate coordinate covariance matrix
+crdaction gpu-trajectory matrix covar \
+name gpu-covar $mask
+
+# Diagonalize coordinate covariance matrix, and
+# get the first 3 eiganvectors
+runanalysis diagmatrix gpu-covar out gpu-evecs.dat \
+vecs $vecs name myevecs \
+nmwiz nmwizvecs 3 nmwizfile ${name}_protein.nmd nmwizmask $mask
+" >> traj.in
+
+cpptraj traj.in >> traj.log
+
+rm traj.in

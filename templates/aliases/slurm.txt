@@ -1,0 +1,3 @@
+# slurm
+alias me='squeue --format="%.10i %.6P %.12j %.5u %.10M %.8T %.3D %.3A %R" -u $USER'
+alias check="me --start"

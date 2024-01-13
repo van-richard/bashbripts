@@ -1,0 +1,15 @@
+# mac
+#alias chimera="/Applications/Chimera.app/Contents/MacOS/chimera"
+#alias chimerax="/Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX"
+#alias iqmol="/Applications/IQmol.app/Contents/MacOS/IQmol"
+#export PATH="~/Programs/ffmpeg:${PATH}"
+#export PATH="/Users/van/Programs/ADFRsuite_x86_64Darwin_1.0/bin:${PATH}"
+#alias vina="/Applications/vina_1.2.5_mac_x86_64\ copy"
+#alias vmd="/Applications/VMD\ 1.9.4.app/Contents/MacOS/startup.command"
+
+# LoBoS
+alias jblobos="ssh -L localhost:8889:localhost:8889 van@de23.lobos.nih.gov"
+alias scplobos="scp -rp -P 1701"
+alias rsynclobos="rsync -av -e 'ssh -p 1701'"
+
+

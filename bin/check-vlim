@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Another simple one which checks mdout files for vlimit errors!
+#
+
+# Check for "vlimit exceeded" in mdout files
+printf "\nCheck vlimit!\n"
+if grep -q "vlimit exceeded" */${cv}_equilibration.mdout; then
+    # Print the first occurrence if found
+    grep "vlimit exceeded" */${cv}_equilibration.mdout -m 1
+else
+    # Indicate if "vlimit exceeded" is not found
+    printf "\tYOU GOOD BOIIIIIIIII\n"
+fi
+

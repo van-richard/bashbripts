@@ -1,0 +1,16 @@
+# ~/.bash_profile
+# Bash login shells start by reading:
+#   /etc/profile > ~/.bash_profile > ~./bash_login > ~/.profile
+# In that order. This only applies to login shells like SSH, emulatos, or `su`.
+#
+# Settings here are for important, one-time things when Bash starts up.
+#
+# To stay organized, I included:
+#   - environment variables
+#   - program paths
+#
+
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+

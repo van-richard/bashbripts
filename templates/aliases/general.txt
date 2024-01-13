@@ -1,0 +1,8 @@
+# General aliases
+alias l="ls -lt"
+alias ld="ls -d"
+
+alias ..="cd ../"
+alias ...="cd ../../"
+alias ....="cd ../../../"
+

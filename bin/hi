@@ -1,0 +1,32 @@
+#!/bin/bash
+# 
+# Script to open GUI applications found in /Applications folder (MacOS)
+
+declare -a ApplicationDirs
+
+if [ ! -z $1 ]; then
+
+    ApplicationName=$1
+
+    ApplicationDirs=($(find /Applications -type d -iname "*${ApplicationName}*app" -maxdepth 3) )
+
+    # If more than 1 app matches; ask the user to choose app
+    if [ ${#ApplicationDirs[@]} -gt 1 ]; then
+        
+        seq 0 $(echo ${#ApplicationDirs[@]} - 1 | bc -l) | while read i; do
+            echo "${i}. ${ApplicationDirs[i]}"
+        done
+
+        read -p "Enter Application Number: " choice
+        
+        open ${ApplicationDirs[choice]}
+    
+    else
+        # If only 1 app matches then open
+        open "${ApplicationDirs}"
+    fi
+else
+    echo "Need an application name!"
+    exit 1
+fi
+

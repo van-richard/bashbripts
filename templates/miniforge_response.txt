@@ -1,0 +1,3 @@
+yes
+$HOME/Programs/miniforge3
+no

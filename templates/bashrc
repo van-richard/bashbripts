@@ -1,0 +1,14 @@
+# ~/.bashrc is started on every shell, this is where I change GUI settings
+# Aliases are also called here from ~/.bash_aliases
+#
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# CLI style (looks)
+export PS1='[ \u ] '
+export CLICOLOR=1
+export LSCOLORS=ExGxCxDxCxegedabagaced
+export TERM=xterm-256color
+

@@ -1,0 +1,6 @@
+# lobos
+alias chimera="/v/apps/chimera/1.16/bin/chimera"
+alias iqmol="/v/apps/iqmol/2.8/cde-root/opt/IQmol/iqmol.sh"
+alias jblobos="myconda; jupyter lab --no-browser --port=8889"
+
+alias vina="/u/van/Programs/vina_1.2.5_linux_x86_64"
